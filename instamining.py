@@ -14,7 +14,7 @@ class InstaHashtagMinior:
     def __init__(self, initial_hashtag):
         self.options = Options()
         self.options.add_experimental_option("detach", True)
-        self.options.add_argument("--headless")
+        # self.options.add_argument("--headless")
         self.service = Service(ChromeDriverManager().install())
         self.browser = webdriver.Chrome(
             service=self.service, options=self.options
@@ -85,13 +85,25 @@ class InstaHashtagMinior:
             """,
                 related_keyword,
             )
+
             counted_hashtag = keyword_text.split("\n")
+
             hashtag_name = counted_hashtag[0][1:]
-            post_count_float = float(
-                re.findall("\d+.\d+", counted_hashtag[1].replace("게시물 ", ""))[
-                    0
-                ]
+
+            print(
+                re.match(
+                    "^([0-9]{1,9})(\.[0-9]{1,1})?",
+                    counted_hashtag[1].replace("게시물 ", ""),
+                )[0]
             )
+
+            post_count_float = float(
+                re.match(
+                    "^([0-9]{1,9})(\.[0-9]{1,1})?",
+                    counted_hashtag[1].replace("게시물 ", ""),
+                )[0]
+            )
+
             post_count_unit = counted_hashtag[1].strip()[-1]
             post_count = 0
             if post_count_unit == "억":

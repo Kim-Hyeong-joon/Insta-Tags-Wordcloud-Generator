@@ -1,4 +1,7 @@
 import pandas as pd
+import matplotlib
+
+matplotlib.use("SVG")
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
@@ -22,4 +25,4 @@ def wordcloud_generator(hashtag):
     plt.figure(figsize=(10, 10), frameon=False)
     plt.imshow(array, interpolation="bilinear")
     plt.axis("off")
-    plt.savefig("wordcloud.png")
+    plt.savefig(f"assets/{hashtag}-wordcloud.png")
