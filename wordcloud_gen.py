@@ -16,7 +16,7 @@ def wordcloud_generator(hashtag):
         prefer_horizontal=0.9999,
     )
 
-    frequencies = hashtags_df.set_index("Hastag").to_dict()["Post Count"]
+    frequencies = hashtags_df.set_index("Hashtag").to_dict()["Post Count"]
 
     keyword = wordcloud.generate_from_frequencies(frequencies)
 

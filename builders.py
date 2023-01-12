@@ -1,9 +1,12 @@
 import dash_html_components as html
+import locale
+
+locale.setlocale(locale.LC_ALL, "")
 
 
 def make_table(df):
     return html.Table(
-        style={"width": 500},
+        style={"width": "100%", "height": "100%", "margin-top": "10vh"},
         children=[
             html.Thead(
                 style={
@@ -41,7 +44,10 @@ def make_table(df):
                         },
                         children=[
                             html.Td(
-                                value_column, style={"textAlign": "center"}
+                                f"{value_column:n} Posts"
+                                if type(value_column) is int
+                                else value_column,
+                                style={"textAlign": "center"},
                             )
                             for value_column in value
                         ],

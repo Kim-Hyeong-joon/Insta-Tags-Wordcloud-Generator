@@ -37,15 +37,18 @@ class InstaHashtagMinior:
 
         password_input.send_keys(Keys.ENTER)
 
-        WebDriverWait(self.browser, 15).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "_aa55"))
-        )
+        try:
+            WebDriverWait(self.browser, 10).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "_aa55"))
+            )
+        except:
+            pass
 
     def make_report(self):
         self.initial_hashtag = self.initial_hashtag.replace("#", "")
         file = open(f"{self.initial_hashtag}-report.csv", "w")
         writer = csv.writer(file)
-        writer.writerow(["Hastag", "Post Count"])
+        writer.writerow(["Hashtag", "Post Count"])
 
         for hashtag in self.counted_hashtags:
             writer.writerow(hashtag)
@@ -54,7 +57,7 @@ class InstaHashtagMinior:
         self.login()
         self.browser.get("https://www.instagram.com")
 
-        WebDriverWait(self.browser, 15).until(
+        WebDriverWait(self.browser, 10).until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, "._a9-z > ._a9_1")
             )
@@ -89,13 +92,6 @@ class InstaHashtagMinior:
             counted_hashtag = keyword_text.split("\n")
 
             hashtag_name = counted_hashtag[0][1:]
-
-            print(
-                re.match(
-                    "^([0-9]{1,9})(\.[0-9]{1,1})?",
-                    counted_hashtag[1].replace("게시물 ", ""),
-                )[0]
-            )
 
             post_count_float = float(
                 re.match(
